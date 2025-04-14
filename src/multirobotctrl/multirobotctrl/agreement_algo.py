@@ -31,25 +31,28 @@ class RobotControl(Node):
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 
-robots = []
-goals = [np.array([10,20]), np.array([10,30]), np.array([10,40])]
-starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
-
-#Create robots, assign start positions and goals
-for (i,g,s) in zip(range(0,3), goals,starts) :
-    if i < 6:
-        robots.append(Robot(i, 'green', s[0], s[1], g[0], g[1]))
-
-#Assign Connections
-robots[0].connections.extend((robots[1], robots[2]))
-robots[1].connections.extend((robots[0], robots[2]))
-robots[2].connections.extend((robots[0], robots[1]))
 
 def main():
 	rclpy.init()
+
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
 	dt = .5
 	iterations = 3000
+	robots = []
+	goals = [np.array([10,20]), np.array([10,30]), np.array([10,40])]
+	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
+	labels = ["robot1", "robot2", "robot3"]
+
+	#Create robots, assign start positions and goals
+	for (i,g,s,l) in zip(range(0,3), goals,starts,labels) :
+		if i < 6:
+			robots.append(Robot(i, l, s[0], s[1], g[0], g[1]))
+
+	#Assign Connections
+	robots[0].connections.extend((robots[1], robots[2]))
+	robots[1].connections.extend((robots[0], robots[2]))
+	robots[2].connections.extend((robots[0], robots[1]))
+
 	try:
 		#Shape based formation control
 		for i in range(0, iterations):
@@ -81,14 +84,14 @@ def main():
 				msg.x = robot.x
 				msg.y = robot.y
 
-				#Publish position to each robot #####
+				#Publish position to each robot
 				yahboom_control.pub.publish(msg)
 				yahboom_control.get_logger().info(str(i))
 				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
 				yahboom_control.rate.sleep()
 			
 	except Exception as e: print(e)
-	finally: yahboom_control.pub.publish(Pose2D())
+	#finally: yahboom_control.pub.publish(Pose2D())
 	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, yahboom_control.settings)
 	yahboom_control.destroy_node()
 	rclpy.shutdown()

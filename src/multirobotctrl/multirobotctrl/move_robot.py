@@ -24,6 +24,7 @@ class Coordinate_Control(Node):
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 	def listener_callback(self, msg):
+		self.get_logger().info("Sending Twist to Robot...")
 		(speed, turn) = (0.2, 1.0)
 		x = 0
 		stop = False
@@ -31,45 +32,44 @@ class Coordinate_Control(Node):
 		Ks = .5
 		Ka = .5
 		
-		position = Pose2D()
-		position = self.sub.subscribe("/send_all_robot_pos")  #Use Pose2d
-		goalx = position.x
-		goaly = position.y
+		new_msg = Pose2D()
+		new_msg = msg
+		goalx = new_msg.x
+		goaly = new_msg.y
 		
 		(posx, posy) = (0,0)
 		dt = .5
 		
 		try:
 			print(self.vels(speed, turn))
-			while speed > .1 :
-				#Error between goal and current position
-				speed = Ks*np.linalg.norm(np.array(posx, posy) - np.array(goalx, goaly))
-				turn = np.tan((goaly - posy)/(goalx - posx))
-				x = np.cos(turn)
-				y = np.sin(turn)
-				
-				#Compare speed to max paramters
-				if speed > self.linear_speed_limit: 
-					speed = self.linear_speed_limit
-				if turn > self.angular_speed_limit: 
-					turn = self.angular_speed_limit
-				print(self.vels(speed, turn))
-				
-				#Calculate the next position based on speed and timestep - Open Loop control
-				posx += dt*speed*x
-				posy += dt*speed*y
-				
-				#Update the Twist message
-				twist.linear.x = speed * x
-				twist.linear.y = speed * y
-				twist.angular.z = turn
-				
-				self.pub.publish(twist)
-				self.get_logger().info(str(twist.linear.x) + str(twist.linear.y))
-				self.rate.sleep()
+			#Error between goal and current position
+			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
+			turn = np.arctan2((goaly - posy),(goalx - posx))
+			x = np.cos(turn)
+			y = np.sin(turn)
+			
+			#Compare speed to max paramters
+			if speed > self.linear_speed_limit: 
+				speed = self.linear_speed_limit
+			if turn > self.angular_speed_limit: 
+				turn = self.angular_speed_limit
+			print(self.vels(speed, turn))
+			
+			#Calculate the next position based on speed and timestep - Open Loop control
+			posx += dt*speed*x
+			posy += dt*speed*y
+			
+			#Update the Twist message
+			twist.linear.x = speed * x
+			twist.linear.y = speed * y
+			twist.angular.z = turn
+			
+			self.pub.publish(twist)
+			self.get_logger().info("x,y speed is " + str(twist.linear.x) + "," + str(twist.linear.y))
+			self.rate.sleep()
 				
 		except Exception as e: print(e)
-		finally: self.pub.publish(Twist())
+		#finally: self.pub.publish(Twist())
 		termios.tcsetattr(sys.stdin, termios.TCSADRAIN,self.settings)
 		
 def main():
