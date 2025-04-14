@@ -37,7 +37,7 @@ class Coordinate_Control(Node):
 		goaly = position.y
 		
 		(posx, posy) = (0,0)
-		dt = 1/self.rate
+		dt = .5
 		
 		try:
 			print(self.vels(speed, turn))

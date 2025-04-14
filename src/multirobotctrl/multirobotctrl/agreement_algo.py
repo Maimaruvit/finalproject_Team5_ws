@@ -48,14 +48,6 @@ robots[2].connections.extend((robots[0], robots[1]))
 def main():
 	rclpy.init()
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
-	(speed, turn) = (0.2, 1.0)
-	x = 0
-	stop = False
-	twist = Twist()
-	Ks = .5
-	Ka = .5
-	
-	(posx, posy) = (0,0)
 	dt = .5
 	iterations = 3000
 	try:
@@ -91,6 +83,7 @@ def main():
 
 				#Publish position to each robot #####
 				yahboom_control.pub.publish(msg)
+				yahboom_control.get_logger().info(str(i))
 				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
 				yahboom_control.rate.sleep()
 			
