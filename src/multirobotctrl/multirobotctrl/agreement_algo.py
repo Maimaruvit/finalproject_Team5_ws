@@ -89,8 +89,9 @@ def main():
 				msg.x = robot.x
 				msg.y = robot.y
 
-			#Publish position to each robot #####
-			yahboom_control.pub.publish(msg)
+				#Publish position to each robot #####
+				yahboom_control.pub.publish(msg)
+				yahboom_control.rate.sleep()
 			
 	except Exception as e: print(e)
 	finally: yahboom_control.pub.publish(Pose2D())
