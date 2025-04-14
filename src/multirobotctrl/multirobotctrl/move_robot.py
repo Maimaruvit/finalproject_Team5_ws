@@ -65,7 +65,7 @@ class Coordinate_Control(Node):
 				twist.angular.z = turn
 				
 				self.pub.publish(twist)
-				self.get_logger().info(twist)
+				self.get_logger().info(str(twist.linear.x) + str(twist.linear.y))
 				self.rate.sleep()
 				
 		except Exception as e: print(e)

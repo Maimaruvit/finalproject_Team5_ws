@@ -91,7 +91,7 @@ def main():
 
 				#Publish position to each robot #####
 				yahboom_control.pub.publish(msg)
-				yahboom_control.get_logger().info(msg)
+				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
 				yahboom_control.rate.sleep()
 			
 	except Exception as e: print(e)
