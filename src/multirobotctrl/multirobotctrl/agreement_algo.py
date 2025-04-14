@@ -25,7 +25,7 @@ class Robot():
 class RobotControl(Node):
 	def __init__(self,name):
 		super().__init__(name)
-		self.pub = self.create_publisher(Twist,'/send_all_robot_pos', 1)
+		self.pub = self.create_publisher(Pose2D,'/send_all_robot_pos', 1)
 		self.rate = self.create_rate(2)
 		self.settings = termios.tcgetattr(sys.stdin)
 	def vels(self, speed, turn):
