@@ -1,0 +1,4 @@
+[console_scripts]
+coordinate_ctrl = multirobotctrl.move_robot:main
+go_to_start_pos = multirobotctrl.agreement_algo:main
+

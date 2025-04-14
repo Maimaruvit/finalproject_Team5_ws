@@ -1,0 +1,41 @@
+[0.790s] Invoking command in '/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/src/multirobotctrl': PYTHONPATH=/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multirobotctrl build --build-base /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build install --record /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/install.log --install-scripts $base/lib/multirobotctrl --single-version-externally-managed install_data
+[0.961s] running egg_info
+[0.962s] creating ../../build/multirobotctrl/multirobotctrl.egg-info
+[0.962s] writing ../../build/multirobotctrl/multirobotctrl.egg-info/PKG-INFO
+[0.963s] writing dependency_links to ../../build/multirobotctrl/multirobotctrl.egg-info/dependency_links.txt
+[0.963s] writing entry points to ../../build/multirobotctrl/multirobotctrl.egg-info/entry_points.txt
+[0.963s] writing requirements to ../../build/multirobotctrl/multirobotctrl.egg-info/requires.txt
+[0.963s] writing top-level names to ../../build/multirobotctrl/multirobotctrl.egg-info/top_level.txt
+[1.010s] writing manifest file '../../build/multirobotctrl/multirobotctrl.egg-info/SOURCES.txt'
+[1.051s] reading manifest file '../../build/multirobotctrl/multirobotctrl.egg-info/SOURCES.txt'
+[1.052s] writing manifest file '../../build/multirobotctrl/multirobotctrl.egg-info/SOURCES.txt'
+[1.052s] running build
+[1.052s] running build_py
+[1.053s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build
+[1.053s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib
+[1.053s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl
+[1.053s] copying multirobotctrl/move_robot.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl
+[1.053s] copying multirobotctrl/agreement_algo.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl
+[1.054s] copying multirobotctrl/__init__.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl
+[1.054s] running install
+[1.055s] running install_lib
+[1.056s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl
+[1.056s] copying /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl/move_robot.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl
+[1.057s] copying /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl/agreement_algo.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl
+[1.057s] copying /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build/lib/multirobotctrl/__init__.py -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl
+[1.057s] byte-compiling /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl/move_robot.py to move_robot.cpython-38.pyc
+[1.059s] byte-compiling /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl/agreement_algo.py to agreement_algo.cpython-38.pyc
+[1.060s] byte-compiling /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl/__init__.py to __init__.cpython-38.pyc
+[1.060s] running install_data
+[1.060s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/share/ament_index
+[1.060s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/share/ament_index/resource_index
+[1.060s] creating /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/share/ament_index/resource_index/packages
+[1.060s] copying resource/multirobotctrl -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/share/ament_index/resource_index/packages
+[1.060s] copying package.xml -> /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/share/multirobotctrl
+[1.060s] running install_egg_info
+[1.061s] Copying ../../build/multirobotctrl/multirobotctrl.egg-info to /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl-0.0.0-py3.8.egg-info
+[1.062s] running install_scripts
+[1.077s] Installing coordinate_ctrl script to /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/multirobotctrl
+[1.077s] Installing go_to_start_pos script to /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/multirobotctrl
+[1.077s] writing list of installed files to '/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/install.log'
+[1.094s] Invoked command in '/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/src/multirobotctrl' returned '0': PYTHONPATH=/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yahboom/Desktop/ROB2/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multirobotctrl build --build-base /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/build install --record /home/yahboom/Desktop/ROB2/finalproject_Team5_ws/build/multirobotctrl/install.log --install-scripts $base/lib/multirobotctrl --single-version-externally-managed install_data
