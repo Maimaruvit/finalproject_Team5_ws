@@ -56,7 +56,7 @@ def main():
 	Ka = .5
 	
 	(posx, posy) = (0,0)
-	dt = 1/yahboom_control.rate
+	dt = 1/float(yahboom_control.rate)
 	iterations = 3000
 	try:
 		#Shape based formation control
