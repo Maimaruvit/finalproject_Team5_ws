@@ -21,6 +21,10 @@ class Coordinate_Control(Node):
 		self.angular_speed_limit = self.get_parameter("angular_speed_limit").get_parameter_value().double_value
 		self.rate = self.create_rate(2)
 		self.settings = termios.tcgetattr(sys.stdin)
+
+		self.posx = 0
+		self.posy = 0
+
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 	def listener_callback(self, msg):
@@ -37,14 +41,13 @@ class Coordinate_Control(Node):
 		goalx = new_msg.x
 		goaly = new_msg.y
 		
-		(posx, posy) = (0,0)
 		dt = .5
 		
 		try:
 			print(self.vels(speed, turn))
 			#Error between goal and current position
-			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
-			turn = np.arctan2((goaly - posy),(goalx - posx))
+			speed = Ks*np.linalg.norm(np.array([self.posx, self.posy]) - np.array([goalx, goaly]))
+			turn = np.arctan2((goaly - self.posy),(goalx - self.posx))
 			x = np.cos(turn)
 			y = np.sin(turn)
 			

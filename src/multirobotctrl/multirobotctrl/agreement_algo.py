@@ -25,7 +25,9 @@ class Robot():
 class RobotControl(Node):
 	def __init__(self,name):
 		super().__init__(name)
-		self.pub = self.create_publisher(Pose2D,'/send_all_robot_pos', 1)
+		self.pub1 = self.create_publisher(Pose2D,'/robot1/send_all_robot_pos', 1)
+		self.pub2 = self.create_publisher(Pose2D,'/robot2/send_all_robot_pos', 1)
+		self.pub3 = self.create_publisher(Pose2D,'/robot3/send_all_robot_pos', 1)
 		self.rate = self.create_rate(2)
 		self.settings = termios.tcgetattr(sys.stdin)
 	def vels(self, speed, turn):
@@ -85,10 +87,21 @@ def main():
 				msg.y = robot.y
 
 				#Publish position to each robot
-				yahboom_control.pub.publish(msg)
-				yahboom_control.get_logger().info(str(i))
-				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
+				if robot.label == "robot1":
+					yahboom_control.pub1.publish(msg)
+					yahboom_control.get_logger().info(str(i))
+					yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
+				elif robot.label =="robot2":
+					yahboom_control.pub2.publish(msg)
+					yahboom_control.get_logger().info(str(i))
+					yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
+				elif robot.label == "robot3":
+					yahboom_control.pub3.publish(msg)
+					yahboom_control.get_logger().info(str(i))
+					yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
 				yahboom_control.rate.sleep()
+
+				
 			
 	except Exception as e: print(e)
 	#finally: yahboom_control.pub.publish(Pose2D())
