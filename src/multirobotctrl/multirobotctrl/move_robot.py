@@ -14,7 +14,7 @@ class Coordinate_Control(Node):
 	def __init__(self,name):
 		super().__init__(name)
 		self.pub = self.create_publisher(Twist,'cmd_vel', 1)
-		self.sub = self.create_subscriber(Pose2D, '/send_all_robot_pos', 1) #Topic to receive coordinates from
+		self.sub = self.create_subscription(Pose2D, '/send_all_robot_pos', 1) #Topic to receive coordinates from
 		self.declare_parameter("linear_speed_limit", 1.0)
 		self.declare_parameter("angular_speed_limit", 5.0)
 		self.linear_speed_limit = self.get_parameter("linear_speed_limit").get_parameter_value().double_value
