@@ -13,9 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Robot():
-    def __init__(self, label, color, x, y, goalx, goaly):
+    def __init__(self, label, x, y, goalx, goaly):
         self.label = label
-        self.color = color
         self.x = x
         self.y = y
         self.goalx = goalx
