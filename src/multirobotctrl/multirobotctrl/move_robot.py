@@ -47,10 +47,10 @@ class Coordinate_Control(Node):
 		dt = .5
 		
 		try:
-			print(self.vels(speed, turn))
 			#Error between goal and current position
 			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
 			turn = np.arctan2((goaly - posy),(goalx - posx))
+			print(self.vels(speed, turn))
 			x = np.cos(turn)
 			y = np.sin(turn)
 
