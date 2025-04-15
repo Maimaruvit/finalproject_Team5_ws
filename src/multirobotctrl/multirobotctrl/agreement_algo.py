@@ -47,7 +47,7 @@ def main():
 	#Create robots, assign start positions and goals
 	for (i,g,s,l) in zip(range(0,3), goals,starts,labels) :
 		if i < 6:
-			robots.append(Robot(l, s[0], s[1], g[0], g[1]))
+			robots.append(Robot(label=l, x=s[0], y=s[1], goalx=g[0], goaly=g[1]))
 
 	#Assign Connections
 	robots[0].connections.extend((robots[1], robots[2]))
