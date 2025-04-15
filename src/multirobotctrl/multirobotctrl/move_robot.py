@@ -11,8 +11,8 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist, Pose2D
 
 class Coordinate_Control(Node):
-	def __init__(self,name, number):
-		super().__init__(name, number)
+	def __init__(self, name, number):
+		super().__init__(name)
 		self.pub = self.create_publisher(Twist,'cmd_vel', 1)
 		subcriberString = '/robot'+str(number)+'/send_all_robot_pos'
 		self.sub = self.create_subscription(Pose2D, subcriberString, self.listener_callback, 1) #Topic to receive coordinates from
