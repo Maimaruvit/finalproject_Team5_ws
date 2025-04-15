@@ -37,7 +37,7 @@ def main():
 	rclpy.init()
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
 	dt = .5
-	iterations = 3000
+	iterations = 1000
 	robots = []
 	goals = [np.array([10,20]), np.array([10,30]), np.array([10,40])]
 	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]

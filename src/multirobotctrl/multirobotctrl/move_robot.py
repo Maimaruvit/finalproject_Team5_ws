@@ -48,6 +48,7 @@ class Coordinate_Control(Node):
 			turn = np.arctan2((goaly - posy),(goalx - posx))
 			x = np.cos(turn)
 			y = np.sin(turn)
+
 			
 			#Compare speed to max paramters
 			if speed > self.linear_speed_limit: 
@@ -64,6 +65,14 @@ class Coordinate_Control(Node):
 			twist.linear.x = speed * x
 			twist.linear.y = speed * y
 			twist.angular.z = turn
+
+			#Check if by goal:
+			if speed < .1:
+				twist.linear.x = 0
+				twist.linear.y = 0
+				twist.angular.z = 0
+				self.pub.publish(twist)
+				self.get_logger().info("At Goal")
 			
 			self.pub.publish(twist)
 			self.get_logger().info("x,y speed is " + str(twist.linear.x) + "," + str(twist.linear.y))
