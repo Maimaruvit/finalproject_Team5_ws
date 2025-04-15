@@ -35,6 +35,7 @@ class RobotControl(Node):
 
 def main():
 	rclpy.init()
+	yahboom_control.get_logger().info("Initialized")
 
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
 	dt = .5
@@ -53,10 +54,13 @@ def main():
 	robots[0].connections.extend((robots[1], robots[2]))
 	robots[1].connections.extend((robots[0], robots[2]))
 	robots[2].connections.extend((robots[0], robots[1]))
+	yahboom_control.get_logger().info("robots made!")
 
 	try:
+		yahboom_control.get_logger().info("Try")
 		#Shape based formation control
 		for i in range(0, iterations):
+			yahboom_control.get_logger().info("Iteration:" + str(i))
 			for robot in robots:
 				connectx = []
 				connecty = []
@@ -86,7 +90,7 @@ def main():
 				msg.y = robot.y
 
 				yahboom_control.rate.sleep()
-				yahboom_control.get_logger().info(robot.label)
+				yahboom_control.get_logger().info(str(robot.label))
 
 				#Publish position to each robot
 				if robot.label == "robot1":
