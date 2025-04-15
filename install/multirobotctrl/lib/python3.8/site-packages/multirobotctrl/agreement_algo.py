@@ -53,7 +53,9 @@ def main():
 	robots[0].connections.extend((robots[1], robots[2]))
 	robots[1].connections.extend((robots[0], robots[2]))
 	robots[2].connections.extend((robots[0], robots[1]))
-	yahboom_control.get_logger().info("robots made!")
+
+	for robot in robots:
+		yahboom_control.get_logger().info(str(robot.label) + str(robot.x) + str(robot.y) + str(robot.goalx) + str(robot.goaly))
 
 	try:
 		yahboom_control.get_logger().info("Try")
@@ -65,11 +67,13 @@ def main():
 				connecty = []
 				connectgoalx = []
 				connectgoaly = []
+				yahboom_control.get_logger().info(str(1))
 				for unit in robot.connections:
 					connectx.append(unit.x)
 					connecty.append(unit.y)
 					connectgoalx.append(unit.goalx)
 					connectgoaly.append(unit.goaly)
+					yahboom_control.get_logger().info(str(2))
 				relposx = 0
 				relposy = 0
 				relgoalx = 0
@@ -79,9 +83,12 @@ def main():
 					relposy += (connecty[i] - robot.y)
 					relgoalx += (connectgoalx[i] - robot.goalx)
 					relgoaly += (connectgoaly[i] - robot.goaly)
+					yahboom_control.get_logger().info(str(3))
 
 				robot.x = robot.x + dt*(relposx - relgoalx)
 				robot.y = robot.y + dt*(relposy - relgoaly)
+
+				yahboom_control.get_logger().info("Robot x:"+str(robot.x)+"Robot y:"+str(robot.y))
 
 				#Define msg to send
 				msg = Pose2D()
