@@ -64,12 +64,9 @@ class Coordinate_Control(Node):
 			twist.linear.x = speed * x
 			twist.linear.y = speed * y
 			twist.angular.z = turn
-
-			self.rate.sleep()
 			
 			self.pub.publish(twist)
 			self.get_logger().info("x,y speed is " + str(twist.linear.x) + "," + str(twist.linear.y))
-			self.rate.sleep()
 				
 		except Exception as e: print(e)
 		#finally: self.pub.publish(Twist())

@@ -36,7 +36,6 @@ class RobotControl(Node):
 def main():
 	rclpy.init()
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
-	yahboom_control.get_logger().info("Initialized")
 	dt = .5
 	iterations = 3000
 	robots = []
@@ -54,11 +53,7 @@ def main():
 	robots[1].connections.extend((robots[0], robots[2]))
 	robots[2].connections.extend((robots[0], robots[1]))
 
-	for robot in robots:
-		yahboom_control.get_logger().info(str(robot.label) + str(robot.x) + str(robot.y) + str(robot.goalx) + str(robot.goaly))
-
 	try:
-		yahboom_control.get_logger().info("Try")
 		#Shape based formation control
 		for i in range(0, iterations):
 			yahboom_control.get_logger().info("Iteration:" + str(i))
@@ -67,13 +62,11 @@ def main():
 				connecty = []
 				connectgoalx = []
 				connectgoaly = []
-				yahboom_control.get_logger().info(str(1))
 				for unit in robot.connections:
 					connectx.append(unit.x)
 					connecty.append(unit.y)
 					connectgoalx.append(unit.goalx)
 					connectgoaly.append(unit.goaly)
-					yahboom_control.get_logger().info(str(2))
 				relposx = 0
 				relposy = 0
 				relgoalx = 0
@@ -83,7 +76,6 @@ def main():
 					relposy += (connecty[i] - robot.y)
 					relgoalx += (connectgoalx[i] - robot.goalx)
 					relgoaly += (connectgoaly[i] - robot.goaly)
-					yahboom_control.get_logger().info(str(3))
 
 				robot.x = robot.x + dt*(relposx - relgoalx)
 				robot.y = robot.y + dt*(relposy - relgoaly)
@@ -95,8 +87,6 @@ def main():
 				msg.x = robot.x
 				msg.y = robot.y
 
-				yahboom_control.get_logger().info(str(robot.label))
-
 				#Publish position to each robot
 				if robot.label == "robot1":
 					yahboom_control.pub1.publish(msg)
@@ -106,9 +96,6 @@ def main():
 					yahboom_control.pub3.publish(msg)
 				else:
 					yahboom_control.get_logger().info(":(")
-
-				yahboom_control.get_logger().info(str(i))
-				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
 
 				
 			
