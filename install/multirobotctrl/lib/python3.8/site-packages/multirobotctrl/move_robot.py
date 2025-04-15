@@ -40,6 +40,7 @@ class Coordinate_Control(Node):
 		Ka = .5
 		new_msg = Pose2D()
 		new_msg = msg
+		
 		goalx = float(new_msg.x)
 		goaly = float(new_msg.y)
 		
@@ -51,16 +52,15 @@ class Coordinate_Control(Node):
 			#Error between goal and current position
 			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
 			turn = np.arctan2((goaly - posy),(goalx - posx))
-			x = np.cos(turn)
-			y = np.sin(turn)
-			print(self.vels(speed, turn))
-
+			x = float(np.cos(turn))
+			y = float(np.sin(turn))
 			
 			#Compare speed to max paramters
 			if speed > self.linear_speed_limit: 
 				speed = self.linear_speed_limit
 			if turn > self.angular_speed_limit: 
 				turn = self.angular_speed_limit
+
 			print(self.vels(speed, turn))
 			
 			#Calculate the next position based on speed and timestep - Open Loop control
@@ -79,6 +79,9 @@ class Coordinate_Control(Node):
 			if speed < .1:
 				twist.linear.x = 0
 				twist.linear.y = 0
+				twist.linear.z = 0
+				twist.angular.x = 0
+				twist.angular.y = 0
 				twist.angular.z = 0
 				self.pub.publish(twist)
 				self.get_logger().info("At Goal")
