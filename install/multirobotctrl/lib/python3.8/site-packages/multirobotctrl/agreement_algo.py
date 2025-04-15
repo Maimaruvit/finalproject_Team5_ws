@@ -35,9 +35,8 @@ class RobotControl(Node):
 
 def main():
 	rclpy.init()
-	yahboom_control.get_logger().info("Initialized")
-
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
+	yahboom_control.get_logger().info("Initialized")
 	dt = .5
 	iterations = 3000
 	robots = []
