@@ -95,7 +95,6 @@ def main():
 				msg.x = robot.x
 				msg.y = robot.y
 
-				yahboom_control.rate.sleep()
 				yahboom_control.get_logger().info(str(robot.label))
 
 				#Publish position to each robot
@@ -110,7 +109,6 @@ def main():
 
 				yahboom_control.get_logger().info(str(i))
 				yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
-				yahboom_control.rate.sleep()
 
 				
 			
