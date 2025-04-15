@@ -11,20 +11,17 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist, Pose2D
 
 class Coordinate_Control(Node):
-	def __init__(self,name):
-		super().__init__(name)
+	def __init__(self,name, number):
+		super().__init__(name, number)
 		self.pub = self.create_publisher(Twist,'cmd_vel', 1)
-		self.sub = self.create_subscription(Pose2D, '/send_all_robot_pos', self.listener_callback, 1) #Topic to receive coordinates from
+		subcriberString = '/robot'+str(number)+'/send_all_robot_pos'
+		self.sub = self.create_subscription(Pose2D, subcriberString, self.listener_callback, 1) #Topic to receive coordinates from
 		self.declare_parameter("linear_speed_limit", 1.0)
 		self.declare_parameter("angular_speed_limit", 5.0)
 		self.linear_speed_limit = self.get_parameter("linear_speed_limit").get_parameter_value().double_value
 		self.angular_speed_limit = self.get_parameter("angular_speed_limit").get_parameter_value().double_value
 		self.rate = self.create_rate(2)
 		self.settings = termios.tcgetattr(sys.stdin)
-
-		self.posx = 0
-		self.posy = 0
-
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 	def listener_callback(self, msg):
@@ -41,13 +38,14 @@ class Coordinate_Control(Node):
 		goalx = new_msg.x
 		goaly = new_msg.y
 		
+		(posx, posy) = (0,0)
 		dt = .5
 		
 		try:
 			print(self.vels(speed, turn))
 			#Error between goal and current position
-			speed = Ks*np.linalg.norm(np.array([self.posx, self.posy]) - np.array([goalx, goaly]))
-			turn = np.arctan2((goaly - self.posy),(goalx - self.posx))
+			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
+			turn = np.arctan2((goaly - posy),(goalx - posx))
 			x = np.cos(turn)
 			y = np.sin(turn)
 			
@@ -77,7 +75,8 @@ class Coordinate_Control(Node):
 		
 def main():
 	rclpy.init()
-	yahboom_control = Coordinate_Control("yahboom_coordinate_ctrl")
+	number = input("Input robot number")
+	yahboom_control = Coordinate_Control("yahboom_coordinate_ctrl", number)
 	rclpy.spin(yahboom_control)
 	yahboom_control.destroy_node()
 	rclpy.shutdown()
