@@ -85,6 +85,8 @@ def main():
 				msg = Pose2D()
 				msg.x = robot.x
 				msg.y = robot.y
+				
+				yahboom_control.rate.sleep(2)
 
 				#Publish position to each robot
 				if robot.label == "robot1":
@@ -99,7 +101,7 @@ def main():
 					yahboom_control.pub3.publish(msg)
 					yahboom_control.get_logger().info(str(i))
 					yahboom_control.get_logger().info(str(msg.x) + str(msg.y))
-				yahboom_control.rate.sleep()
+				yahboom_control.rate.sleep(2)
 
 				
 			
