@@ -13,8 +13,8 @@ from geometry_msgs.msg import Twist, Pose2D
 class Robot():
     def __init__(self, label, x, y):
         self.label = label
-        self.x = x
-        self.y = y
+        self.x = float(x)
+        self.y = float(y)
 
 class Coordinate_Control(Node):
 	def __init__(self, name, number, robot):
@@ -40,19 +40,20 @@ class Coordinate_Control(Node):
 		Ka = .5
 		new_msg = Pose2D()
 		new_msg = msg
-		goalx = new_msg.x
-		goaly = new_msg.y
+		goalx = float(new_msg.x)
+		goaly = float(new_msg.y)
 		
 		(posx, posy) = (self.robot.x,self.robot.y)
 		dt = .5
 		
 		try:
+			
 			#Error between goal and current position
 			speed = Ks*np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
 			turn = np.arctan2((goaly - posy),(goalx - posx))
-			print(self.vels(speed, turn))
 			x = np.cos(turn)
 			y = np.sin(turn)
+			print(self.vels(speed, turn))
 
 			
 			#Compare speed to max paramters
