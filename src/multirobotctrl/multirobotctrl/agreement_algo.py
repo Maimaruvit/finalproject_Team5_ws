@@ -39,7 +39,7 @@ def main():
 	dt = .5
 	iterations = 1000
 	robots = []
-	goals = [np.array([10,20]), np.array([10,30]), np.array([10,40])]
+	goals = [np.array([0,-10]), np.array([0,0]), np.array([0,10])]
 	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
 	labels = ["robot1", "robot2", "robot3"]
 
