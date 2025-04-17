@@ -1,0 +1,5 @@
+  File "/home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl/agreement_algo.py", line 39
+    if self.settings and isinstance(self.settings, list) and len(self.settings)n== 7:
+                                                                               ^
+SyntaxError: invalid syntax
+

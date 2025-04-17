@@ -1,0 +1,23 @@
+[0.570s] Invoking command in '/home/yahboom/RoboticsII_final/finalproject_Team5_ws/src/multirobotctrl': PYTHONPATH=/home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multirobotctrl build --build-base /home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/build install --record /home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/install.log --install-scripts $base/lib/multirobotctrl --single-version-externally-managed install_data
+[0.782s] running egg_info
+[0.783s] writing ../../build/multirobotctrl/multirobotctrl.egg-info/PKG-INFO
+[0.783s] writing dependency_links to ../../build/multirobotctrl/multirobotctrl.egg-info/dependency_links.txt
+[0.784s] writing entry points to ../../build/multirobotctrl/multirobotctrl.egg-info/entry_points.txt
+[0.784s] writing requirements to ../../build/multirobotctrl/multirobotctrl.egg-info/requires.txt
+[0.784s] writing top-level names to ../../build/multirobotctrl/multirobotctrl.egg-info/top_level.txt
+[0.809s] reading manifest file '../../build/multirobotctrl/multirobotctrl.egg-info/SOURCES.txt'
+[0.810s] writing manifest file '../../build/multirobotctrl/multirobotctrl.egg-info/SOURCES.txt'
+[0.810s] running build
+[0.810s] running build_py
+[0.810s] running install
+[0.811s] running install_lib
+[0.813s] running install_data
+[0.813s] copying launch/robot_launch.py -> /home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/share/multirobotctrl/launch
+[0.813s] running install_egg_info
+[0.815s] removing '/home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl-0.0.0-py3.8.egg-info' (and everything under it)
+[0.815s] Copying ../../build/multirobotctrl/multirobotctrl.egg-info to /home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages/multirobotctrl-0.0.0-py3.8.egg-info
+[0.816s] running install_scripts
+[0.831s] Installing coordinate_ctrl script to /home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/multirobotctrl
+[0.832s] Installing go_to_start_pos script to /home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/multirobotctrl
+[0.832s] writing list of installed files to '/home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/install.log'
+[0.849s] Invoked command in '/home/yahboom/RoboticsII_final/finalproject_Team5_ws/src/multirobotctrl' returned '0': PYTHONPATH=/home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yahboom/RoboticsII_final/finalproject_Team5_ws/install/multirobotctrl/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multirobotctrl build --build-base /home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/build install --record /home/yahboom/RoboticsII_final/finalproject_Team5_ws/build/multirobotctrl/install.log --install-scripts $base/lib/multirobotctrl --single-version-externally-managed install_data
