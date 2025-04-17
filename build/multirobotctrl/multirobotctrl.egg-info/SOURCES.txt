@@ -8,6 +8,7 @@ setup.py
 ../../build/multirobotctrl/multirobotctrl.egg-info/requires.txt
 ../../build/multirobotctrl/multirobotctrl.egg-info/top_level.txt
 ../../build/multirobotctrl/multirobotctrl.egg-info/zip-safe
+launch/robot_launch.py
 multirobotctrl/__init__.py
 multirobotctrl/agreement_algo.py
 multirobotctrl/move_robot.py
