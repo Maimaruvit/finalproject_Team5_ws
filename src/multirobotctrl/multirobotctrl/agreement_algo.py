@@ -27,6 +27,14 @@ class RobotControl(Node):
 		self.pub2 = self.create_publisher(Pose2D,'/robot2/send_all_robot_pos', 1)
 		self.pub3 = self.create_publisher(Pose2D,'/robot3/send_all_robot_pos', 1)
 		self.rate = self.create_rate(2)
+<<<<<<< HEAD
+=======
+		try:
+    			self.settings = termios.tcgetattr(sys.stdin)
+		except termios.error:
+    			self.settings = None
+
+>>>>>>> 5ea8df45c97a4b36964360f6a3becc199fab52cd
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 
@@ -100,4 +108,11 @@ def main():
 	except Exception as e: print(e)
 	#finally: yahboom_control.pub.publish(Pose2D())
 	yahboom_control.destroy_node()
+<<<<<<< HEAD
 	rclpy.shutdown()
+=======
+	rclpy.shutdown()
+	
+if __name__ == '__main__':
+    main()
+>>>>>>> 5ea8df45c97a4b36964360f6a3becc199fab52cd

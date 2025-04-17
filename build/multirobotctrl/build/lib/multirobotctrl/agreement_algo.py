@@ -13,9 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Robot():
-    def __init__(self, label, color, x, y, goalx, goaly):
+    def __init__(self, label, x, y, goalx, goaly):
         self.label = label
-        self.color = color
         self.x = x
         self.y = y
         self.goalx = goalx
@@ -25,42 +24,43 @@ class Robot():
 class RobotControl(Node):
 	def __init__(self,name):
 		super().__init__(name)
-		self.pub = self.create_publisher(Twist,'/send_all_robot_pos', 1)
+		self.pub1 = self.create_publisher(Pose2D,'/robot1/send_all_robot_pos', 1)
+		self.pub2 = self.create_publisher(Pose2D,'/robot2/send_all_robot_pos', 1)
+		self.pub3 = self.create_publisher(Pose2D,'/robot3/send_all_robot_pos', 1)
 		self.rate = self.create_rate(2)
-		self.settings = termios.tcgetattr(sys.stdin)
+		try:
+    			self.settings = termios.tcgetattr(sys.stdin)
+		except termios.error:
+    			self.settings = None
+
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 
-robots = []
-goals = [np.array([10,20]), np.array([10,30]), np.array([10,40])]
-starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
-
-#Create robots, assign start positions and goals
-for (i,g,s) in zip(range(0,3), goals,starts) :
-    if i < 6:
-        robots.append(Robot(i, 'green', s[0], s[1], g[0], g[1]))
-
-#Assign Connections
-robots[0].connections.extend((robots[1], robots[2]))
-robots[1].connections.extend((robots[0], robots[2]))
-robots[2].connections.extend((robots[0], robots[1]))
 
 def main():
 	rclpy.init()
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
-	(speed, turn) = (0.2, 1.0)
-	x = 0
-	stop = False
-	twist = Twist()
-	Ks = .5
-	Ka = .5
-	
-	(posx, posy) = (0,0)
-	dt = 1/yahboom_control.rate
-	iterations = 3000
+	dt = .5
+	iterations = 1000
+	robots = []
+	goals = [np.array([0,-10]), np.array([0,0]), np.array([0,10])]
+	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
+	labels = ["robot1", "robot2", "robot3"]
+
+	#Create robots, assign start positions and goals
+	for (i,g,s,l) in zip(range(0,3), goals,starts,labels) :
+		if i < 6:
+			robots.append(Robot(label=l, x=s[0], y=s[1], goalx=g[0], goaly=g[1]))
+
+	#Assign Connections
+	robots[0].connections.extend((robots[1], robots[2]))
+	robots[1].connections.extend((robots[0], robots[2]))
+	robots[2].connections.extend((robots[0], robots[1]))
+
 	try:
 		#Shape based formation control
 		for i in range(0, iterations):
+			yahboom_control.get_logger().info("Iteration:" + str(i))
 			for robot in robots:
 				connectx = []
 				connecty = []
@@ -84,16 +84,30 @@ def main():
 				robot.x = robot.x + dt*(relposx - relgoalx)
 				robot.y = robot.y + dt*(relposy - relgoaly)
 
+				yahboom_control.get_logger().info("Robot x:"+str(robot.x)+"Robot y:"+str(robot.y))
+
 				#Define msg to send
 				msg = Pose2D()
 				msg.x = robot.x
 				msg.y = robot.y
 
-			#Publish position to each robot #####
-			yahboom_control.pub.publish(msg)
+				#Publish position to each robot
+				if robot.label == "robot1":
+					yahboom_control.pub1.publish(msg)
+				elif robot.label =="robot2":
+					yahboom_control.pub2.publish(msg)
+				elif robot.label == "robot3":
+					yahboom_control.pub3.publish(msg)
+				else:
+					yahboom_control.get_logger().info(":(")
+
+				
 			
 	except Exception as e: print(e)
-	finally: yahboom_control.pub.publish(Pose2D())
+	#finally: yahboom_control.pub.publish(Pose2D())
 	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, yahboom_control.settings)
 	yahboom_control.destroy_node()
 	rclpy.shutdown()
+	
+if __name__ == '__main__':
+    main()

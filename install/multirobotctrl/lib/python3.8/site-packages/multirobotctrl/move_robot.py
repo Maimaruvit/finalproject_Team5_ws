@@ -101,3 +101,6 @@ def main():
 	rclpy.spin(yahboom_control)
 	yahboom_control.destroy_node()
 	rclpy.shutdown()
+	
+if __name__ == '__main__':
+    main()
