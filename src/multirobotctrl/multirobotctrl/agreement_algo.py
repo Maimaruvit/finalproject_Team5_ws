@@ -2,7 +2,6 @@
 # encoding: utf-8
 #import public lib
 from geometry_msgs.msg import Twist, Pose2D
-import sys, select, termios, tty
 import numpy as np
 
 #import ros lib
@@ -28,7 +27,6 @@ class RobotControl(Node):
 		self.pub2 = self.create_publisher(Pose2D,'/robot2/send_all_robot_pos', 1)
 		self.pub3 = self.create_publisher(Pose2D,'/robot3/send_all_robot_pos', 1)
 		self.rate = self.create_rate(2)
-		self.settings = termios.tcgetattr(sys.stdin)
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
 
@@ -37,9 +35,9 @@ def main():
 	rclpy.init()
 	yahboom_control = RobotControl("yahboom_coordinate_ctrl")
 	dt = .5
-	iterations = 1000
+	iterations = 250
 	robots = []
-	goals = [np.array([0,-10]), np.array([0,0]), np.array([0,10])]
+	goals = [np.array([0,-60]), np.array([0,0]), np.array([0,60])]
 	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
 	labels = ["robot1", "robot2", "robot3"]
 
@@ -101,6 +99,5 @@ def main():
 			
 	except Exception as e: print(e)
 	#finally: yahboom_control.pub.publish(Pose2D())
-	termios.tcsetattr(sys.stdin, termios.TCSADRAIN, yahboom_control.settings)
 	yahboom_control.destroy_node()
 	rclpy.shutdown()

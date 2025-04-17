@@ -2,7 +2,6 @@
 # encoding: utf-8
 #import public lib
 from geometry_msgs.msg import Twist, Pose2D
-import sys, select, termios, tty
 import numpy as np
 
 #import ros lib
@@ -27,7 +26,6 @@ class Coordinate_Control(Node):
 		self.linear_speed_limit = self.get_parameter("linear_speed_limit").get_parameter_value().double_value
 		self.angular_speed_limit = self.get_parameter("angular_speed_limit").get_parameter_value().double_value
 		self.rate = self.create_rate(2)
-		self.settings = termios.tcgetattr(sys.stdin)
 		self.robot = robot
 	def vels(self, speed, turn):
 		return "currently:\tspeed %s\tturn %s " % (speed,turn)	
@@ -91,7 +89,6 @@ class Coordinate_Control(Node):
 				
 		except Exception as e: print(e)
 		#finally: self.pub.publish(Twist())
-		termios.tcsetattr(sys.stdin, termios.TCSADRAIN,self.settings)
 		
 def main():
 	rclpy.init()
