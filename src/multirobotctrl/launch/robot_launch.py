@@ -20,9 +20,14 @@ def generate_launch_description():
         output='screen'
     )
 
-    persistent = ExecuteProcess(
+    persistent1 = ExecuteProcess(
         cmd=['ros2', 'run', 'yahboomcar_bringup', 'Mcnamu_driver_X3'],
         output='screen'
+    )
+
+    persistent2 = ExecuteProcess(
+        cmd=['ros2', 'run', 'yahboomcar_laser', 'laser_Tracker_a1_X3'],
+        output='screen',
     )
 
     # Predefine remaining processes
@@ -30,16 +35,13 @@ def generate_launch_description():
         cmd=['ros2', 'launch', 'sllidar_ros2', 'sllidar_launch.py'],
         output='screen',
     )
-    tracker = ExecuteProcess(
-        cmd=['ros2', 'run', 'yahboomcar_laser', 'laser_Tracker_a1_X3'],
-        output='screen',
-    )
 
     ld = LaunchDescription([
         DeclareLaunchArgument(...),
         SetEnvironmentVariable(...),
         form1,  # Initial position setup
-        persistent,  # Long-running driver
+        persistent1,  # Long-running motor driver
+        persistent2, # Long-running lidar "driver"
     ])
 
     # Chain: form1 -> form2 -> sensors
@@ -47,7 +49,7 @@ def generate_launch_description():
         return [form2]  # Launch form2 after form1 exits
 
     def start_sensors_after_form2(event, context):
-        return [lidar, tracker]  # Launch sensors after form2 exits
+        return [lidar]  # Launch sensors after form2 exits
 
     # Register event handlers
     ld.add_action(RegisterEventHandler(OnProcessExit(
