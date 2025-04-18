@@ -72,13 +72,13 @@ class Coordinate_Control(Node):
 			distance = np.linalg.norm(np.array([posx, posy]) - np.array([goalx, goaly]))
 
 			#Check if by goal:
-			if distance < .1:
-				twist.linear.x = 0
-				twist.linear.y = 0
-				twist.linear.z = 0
-				twist.angular.x = 0
-				twist.angular.y = 0
-				twist.angular.z = 0
+			if distance < 0.75:
+				twist.linear.x = 0.0
+				twist.linear.y = 0.0
+				twist.linear.z = 0.0
+				twist.angular.x = 0.0
+				twist.angular.y = 0.0
+				twist.angular.z = 0.0
 				self.get_logger().info("At Goal")
 			
 			self.pub.publish(twist)
@@ -91,7 +91,7 @@ class Coordinate_Control(Node):
 def main():
 	rclpy.init()
 	robot = Robot("robot", 0.0,0.0)
-	number = input("Input robot number")
+	number = 2
 	yahboom_control = Coordinate_Control("yahboom_coordinate_ctrl", number, robot)
 	rclpy.spin(yahboom_control)
 	yahboom_control.destroy_node()

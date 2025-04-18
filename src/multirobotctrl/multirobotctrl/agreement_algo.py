@@ -36,8 +36,8 @@ def main():
 	dt = .5
 	iterations = 250
 	robots = []
-	goals = [np.array([0,-60]), np.array([0,0]), np.array([0,60])]
-	starts = [np.array([5,0]), np.array([10,0]), np.array([15,0])]
+	goals = [np.array([0,-1]), np.array([0,0]), np.array([0,1])]
+	starts = [np.array([1,0]), np.array([-1,-1]), np.array([-1,0])]
 	labels = ["robot1", "robot2", "robot3"]
 
 	#Create robots, assign start positions and goals
