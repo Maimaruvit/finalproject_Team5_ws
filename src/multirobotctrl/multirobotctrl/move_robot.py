@@ -91,7 +91,8 @@ class Coordinate_Control(Node):
 def main():
 	rclpy.init()
 	robot = Robot("robot", 0.0,0.0)
-	number = 2
+	number = input("Input Desired robot number: ")
+	print("Confirmed robot number:", number)
 	yahboom_control = Coordinate_Control("yahboom_coordinate_ctrl", number, robot)
 	rclpy.spin(yahboom_control)
 	yahboom_control.destroy_node()
