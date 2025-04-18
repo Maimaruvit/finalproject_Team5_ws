@@ -30,18 +30,19 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Predefine remaining processes
-    lidar = ExecuteProcess(
+    persistent3 = ExecuteProcess(
         cmd=['ros2', 'launch', 'sllidar_ros2', 'sllidar_launch.py'],
         output='screen',
     )
 
+    # Predefine remaining processe
     ld = LaunchDescription([
         DeclareLaunchArgument(...),
         SetEnvironmentVariable(...),
         form1,  # Initial position setup
         persistent1,  # Long-running motor driver
-        persistent2, # Long-running lidar "driver"
+        persistent2, # Long-running lidar "driver
+        persistent3,
     ])
 
     # Chain: form1 -> form2 -> sensors
@@ -49,17 +50,7 @@ def generate_launch_description():
         return [form2]  # Launch form2 after form1 exits
 
     def start_sensors_after_form2(event, context):
-        return [lidar]  # Launch sensors after form2 exits
+        return []  # Launch sensors after form2 exits
 
-    # Register event handlers
-    ld.add_action(RegisterEventHandler(OnProcessExit(
-            target_action=form1,
-            on_exit=start_form2_after_form1
-    )))
-
-    ld.add_action(RegisterEventHandler(OnProcessExit(
-            target_action=form2,
-            on_exit=start_sensors_after_form2
-    )))
 
     return ld
