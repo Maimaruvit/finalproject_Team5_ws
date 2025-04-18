@@ -36,36 +36,28 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription([
-        DeclareLaunchArgument('domain_id', default_value='10'),
-        DeclareLaunchArgument('namespace', default_value='robot1'),
-        SetEnvironmentVariable('ROS_DOMAIN_ID', domain_id),
-        form1,
-        form2,
-        persistent,
+        DeclareLaunchArgument(...),
+        SetEnvironmentVariable(...),
+        form1,  # Initial position setup
+        persistent,  # Long-running driver
     ])
 
-    def try_launch_remaining():
-        if form1_done and form2_done:
-            ld.add_action(lidar)
-            ld.add_action(tracker)
+    # Chain: form1 -> form2 -> sensors
+    def start_form2_after_form1(event, context):
+        return [form2]  # Launch form2 after form1 exits
 
-    def on_form1_exit(event, context):
-        form1_done.append(True)
-        try_launch_remaining()
+    def start_sensors_after_form2(event, context):
+        return [lidar, tracker]  # Launch sensors after form2 exits
 
-    def on_form2_exit(event, context):
-        form2_done.append(True)
-        try_launch_remaining()
-
+    # Register event handlers
     ld.add_action(RegisterEventHandler(OnProcessExit(
-        target_action=form1,
-        on_exit=on_form1_exit
+            target_action=form1,
+            on_exit=start_form2_after_form1
     )))
 
     ld.add_action(RegisterEventHandler(OnProcessExit(
-        target_action=form2,
-        on_exit=on_form2_exit
+            target_action=form2,
+            on_exit=start_sensors_after_form2
     )))
 
     return ld
-
