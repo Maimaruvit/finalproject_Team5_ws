@@ -37,20 +37,21 @@ def generate_launch_description():
 
     # Predefine remaining processe
     ld = LaunchDescription([
-        DeclareLaunchArgument(...),
-        SetEnvironmentVariable(...),
-        form1,  # Initial position setup
-        persistent1,  # Long-running motor driver
+        DeclareLaunchArgument('domain_id', default_value='10'),
+        DeclareLaunchArgument('namespace', default_value='robot1'),
+        SetEnvironmentVariable('ROS_DOMAIN_ID', domain_id),
+        # form1,  # Initial position setup
+        # persistent1,  # Long-running motor driver
         persistent2, # Long-running lidar "driver
         persistent3,
     ])
 
     # Chain: form1 -> form2 -> sensors
-    def start_form2_after_form1(event, context):
-        return [form2]  # Launch form2 after form1 exits
+    # def start_form2_after_form1(event, context):
+    #     return [form2]  # Launch form2 after form1 exits
 
-    def start_sensors_after_form2(event, context):
-        return []  # Launch sensors after form2 exits
+    # def start_sensors_after_form2(event, context):
+    #     return []  # Launch sensors after form2 exits
 
 
     return ld
